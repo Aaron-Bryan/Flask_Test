@@ -9,12 +9,12 @@ the function, then the application will be returned.
 import os
 from flask import Flask
 
-def initialize_app(test_config=None):
+def create_app(test_config=None):
     #Create the app
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
-        SECRET_KEY = "dev",
-        DATABASE = os.path.join(app.instance_path, "flaskr.sqlite"),
+        SECRET_KEY="random_pass",
+        DATABASE=os.path.join(app.instance_path, "flaskr.sqlite"),
     )
 
     if test_config is None:
@@ -25,10 +25,13 @@ def initialize_app(test_config=None):
     try:
         os.mkdir(app.instance_path)
     except OSError:
-        print("Folder does not exist")
+        print("Error")
+        pass
 
     @app.route("/")
     def hello_method():
         str = "Hello, mf!"
 
         return (str)
+
+    return app
