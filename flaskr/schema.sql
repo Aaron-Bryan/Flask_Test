@@ -10,9 +10,10 @@ CREATE TABLE user (
     );
 
 CREATE TABLE post (
-    id INTEGER,
-    author_id INTEGER,
-    created TIMESTAMP,
-    post_title TEXT,
-    post_body TEXT
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    author_id INTEGER NOT NULL,
+    created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    post_title TEXT NOT NULL,
+    post_body TEXT NOT NULL,
+    FOREIGN KEY(author_id) REFERENCES user(id)
     );
