@@ -16,6 +16,12 @@ def get_db():
 
     return g.db
 
+def init_db():
+    database = get_db()
+
+    with current_app.open_resource("schema.sql") as file:
+        database.executescript(file.read().decode("utf8"))
+
 def close_db(e=None):
     db=g.pop("db", None)
 
