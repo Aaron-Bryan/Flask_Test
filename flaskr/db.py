@@ -28,7 +28,7 @@ def init_db():
 
 @click.command("init_db")
 def init_db_command():
-    """Clear the existing data and create new tables."""
+    #Clear existing data if there is any and Initializes the database
     init_db()
     click.echo("Database is initialized")
 
