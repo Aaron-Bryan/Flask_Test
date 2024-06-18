@@ -8,6 +8,7 @@ the function, then the application will be returned.
 
 import os
 from flask import Flask
+from . import db
 
 def create_app(test_config=None):
     #Create the app
@@ -25,8 +26,8 @@ def create_app(test_config=None):
     try:
         os.mkdir(app.instance_path)
     except OSError:
-        print("Error")
         pass
+
 
     @app.route("/")
     def hello_method():
@@ -34,4 +35,5 @@ def create_app(test_config=None):
 
         return (str)
 
+    db.init_app(app)
     return app

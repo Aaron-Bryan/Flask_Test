@@ -16,11 +16,15 @@ def get_db():
 
     return g.db
 
+def init_app(app):
+    app.teardown_appcontext(close_db)
+    app.cli.add_command(init_db_command)
+
 def init_db():
-    database = get_db()
+    db = get_db()
 
     with current_app.open_resource("schema.sql") as file:
-        database.executescript(file.read().decode("utf8"))
+        db.executescript(file.read().decode("utf8"))
 
 @click.command("init_db")
 def init_db_command():
