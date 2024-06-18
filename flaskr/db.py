@@ -22,10 +22,6 @@ def init_db():
     with current_app.open_resource("schema.sql") as file:
         database.executescript(file.read().decode("utf8"))
 
-def init_app(app):
-    app.teardown_appcontext(close_db)
-    app.cli.add_command(init_db_command)
-
 @click.command("init_db")
 def init_db_command():
     """Clear the existing data and create new tables."""
