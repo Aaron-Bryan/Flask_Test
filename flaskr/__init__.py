@@ -10,6 +10,7 @@ import os
 from flask import Flask
 from . import db
 
+
 def create_app(test_config=None):
     #Create the app
     app = Flask(__name__, instance_relative_config=True)
