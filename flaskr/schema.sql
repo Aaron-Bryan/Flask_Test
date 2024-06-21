@@ -4,9 +4,13 @@
 DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS post;
 
+--Creates a Table called user
 CREATE TABLE user (
+    --Primary key is id and is also automatically generated
     id INTEGER PRIMARY KEY AUTOINCREMENT,
+    --username must be unique and not null
     username TEXT UNIQUE NOT NULL,
+    --password must not be null
     password TEXT NOT NULL
     );
 
