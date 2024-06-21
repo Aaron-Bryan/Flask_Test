@@ -7,8 +7,12 @@ import click
 from flask import current_app, g
 
 def get_db():
+    #g is a special object that holds data related to the connection that can be used by multiple functions
     if "db" not in g:
+        #Establish a connection to the file pointed by the "DATABASE" key from the configs.
         g.db = sqlite3.connect(
+            #Current app is another special object that points to the request, it will be called when the application factory
+            #has created the application itself.
             current_app.config["DATABASE"],
             detect_types=sqlite3.PARSE_DECLTYPES
         )

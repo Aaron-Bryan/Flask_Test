@@ -1,5 +1,6 @@
 --Time to learn sql lmao
 
+--Removes the following tables if they exist
 DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS post;
 
