@@ -21,16 +21,19 @@ def create_app(test_config=None):
 
     #Configuration settings
     if test_config is None:
+        #Load the instance config, it exists, when not testing
         app.config.from_pyfile("config.py", silent=True)
     else:
+        #Load the test config if passed in
         app.config.from_mapping(test_config)
 
+    #Use a try catch method to ensure the instance folder exists
     try:
         os.mkdir(app.instance_path)
     except OSError:
         pass
 
-
+    #Test page
     @app.route("/")
     def hello_method():
         str = "Hello, mf!"
