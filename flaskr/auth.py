@@ -6,7 +6,5 @@ from flask import Blueprint, flash, g, redirect, render_template, request, sessi
 from werkzeug.security import check_password_hash, generate_password_hash
 
 
-#Create a blueprint named auth
-#__name__ is put on so that the blueprint itself knows where it is defined
-#the url_prefix will be added to the URLs related with the blueprint
+#Create a blueprint named auth and configure it with a prefix to add to the URLs it is related to.
 bp = Blueprint("auth", __name__, url_prefix="/auth")

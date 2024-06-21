@@ -10,15 +10,16 @@ import os
 from flask import Flask
 from . import db
 
-
+#Main code of the application factory.
 def create_app(test_config=None):
-    #Create the app
+    #Create the app and cofigure it
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
         SECRET_KEY="random_pass",
         DATABASE=os.path.join(app.instance_path, "flaskr.sqlite"),
     )
 
+    #Configuration settings
     if test_config is None:
         app.config.from_pyfile("config.py", silent=True)
     else:
