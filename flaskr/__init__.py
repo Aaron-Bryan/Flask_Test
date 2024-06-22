@@ -8,6 +8,7 @@ the function, then the application will be returned.
 
 import os
 from flask import Flask
+from . import auth
 from . import db
 
 #Main code of the application factory.
@@ -40,5 +41,9 @@ def create_app(test_config=None):
 
         return (str)
 
+    #Registers the blueprint to the application factory
+    app.register_blueprint(auth.bp)
+    #Call the function from the db class
     db.init_app(app)
+
     return app
