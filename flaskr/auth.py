@@ -8,3 +8,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 #Create a blueprint named auth and configure it with a prefix to add to the URLs it is related to.
 bp = Blueprint("auth", __name__, url_prefix="/auth")
+
+@bp.route("/register", methods=("GET", "POST"))
+def register():
+    pass
