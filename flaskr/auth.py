@@ -10,7 +10,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 bp = Blueprint("auth", __name__, url_prefix="/auth")
 
 #Function for new user registration
-#Associates the URL "/register" with the register view function
+#@bp.route Associates the URL "/register" with the register view function
 @bp.route("/register", methods=("GET", "POST"))
 def register():
     #"POST" the new user's data into the database
@@ -51,3 +51,8 @@ def register():
         flash(error)
 
     return render_template("auth/register.html")
+
+#Function for user login.
+@bp.route("/login", methods=("GET", "POST"))
+def login():
+    pass
