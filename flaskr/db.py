@@ -22,7 +22,9 @@ def get_db():
 
 #Submits the functions for registration with the application instance
 def init_app(app):
+    #app.teardown_appcontext tells Flask to called the specified function after a response
     app.teardown_appcontext(close_db)
+    #Adds a new command that can be called on CLI
     app.cli.add_command(init_db_command)
 
 #Initializes the Database
