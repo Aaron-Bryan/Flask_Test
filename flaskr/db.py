@@ -20,16 +20,19 @@ def get_db():
 
     return g.db
 
+#Submits the functions for registration with the application instance
 def init_app(app):
     app.teardown_appcontext(close_db)
     app.cli.add_command(init_db_command)
 
+#Initializes the Database
 def init_db():
     db = get_db()
 
     with current_app.open_resource("schema.sql") as file:
         db.executescript(file.read().decode("utf8"))
 
+#Creates a CLI command for database initialization
 @click.command("init_db")
 def init_db_command():
     #Clear existing data if there is any and Initializes the database
