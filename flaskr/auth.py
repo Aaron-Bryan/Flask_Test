@@ -63,7 +63,7 @@ def login():
 
         # The user data is queried first and then stored into a variable
         # The fetchone() returns a specified row from the query
-        user = db.execute("SELECT * FROM user WHERE username = ?", (username)).fetchone()
+        user = db.execute("SELECT * FROM user WHERE username = ?", (username,)).fetchone()
 
         if user is None:
             error = "Incorrect username"
@@ -74,6 +74,9 @@ def login():
 
         if error is None:
             #Session is dict that stores data across requests, When validation is done the id of the user is stored in a new session
+            """The data is stored in a cookie that is sent to the browser,
+             and the browser then sends it back with subsequent requests. 
+             Flask securely signs the data so that it can’t be tampered with."""
             session.clear()
             session["user_id"] = user["id"]
 
@@ -81,3 +84,13 @@ def login():
 
         flash(error)
     return  render_template("auth/login.html")
+
+@bp.before_app_request
+def load_loggin_user():
+    user_id = session.get("user_id")
+
+    if user_id is None:
+        g.user = None
+    else:
+        g.user = get_db().execute(
+            "SELECT * FROM user WHERE id = ?", (user_id,)).fetchone()
