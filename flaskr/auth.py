@@ -97,3 +97,11 @@ def load_loggin_user():
     else:
         #The data from the session is stored on g.user, which lasta for the length of the request
         g.user = get_db().execute("SELECT * FROM user WHERE id = ?", (user_id,)).fetchone()
+
+#Function for user logout
+@bp.route("/logout")
+def logout():
+    #Clears the data inside the session variable
+    session.clear()
+    #Returns to the initial view
+    return redirect(url_for("index"))
