@@ -85,12 +85,15 @@ def login():
         flash(error)
     return  render_template("auth/login.html")
 
+#Function that runs before the view function, regardless of what URL is requested.
 @bp.before_app_request
+#Function that checks if user_id is stored in the session and gets the data from it.
 def load_loggin_user():
     user_id = session.get("user_id")
 
     if user_id is None:
+        #If user_id is null on the session, then g.user will be none
         g.user = None
     else:
-        g.user = get_db().execute(
-            "SELECT * FROM user WHERE id = ?", (user_id,)).fetchone()
+        #The data from the session is stored on g.user, which lasta for the length of the request
+        g.user = get_db().execute("SELECT * FROM user WHERE id = ?", (user_id,)).fetchone()
