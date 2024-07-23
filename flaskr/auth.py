@@ -99,9 +99,24 @@ def load_loggin_user():
         g.user = get_db().execute("SELECT * FROM user WHERE id = ?", (user_id,)).fetchone()
 
 #Function for user logout
+#To logout we need to remove the user id from the session. Then the "load_logged_in_user" will not load a user on subsequent requests
 @bp.route("/logout")
 def logout():
     #Clears the data inside the session variable
     session.clear()
     #Returns to the initial view
     return redirect(url_for("index"))
+
+#Require logins for views that require a "user"
+#This decorator returns a new view function that is wrapped on the original view it is applied to.
+#The function checks if a user is loaded and logged in and works normally, users who have not logged in gets redirected if otherwise.
+def login_required(view):
+    @functools.wraps(view)
+
+    def wrapped_view(**kwargs):
+        if g.user is None:
+            return redirect(url_for("auth.login"))
+
+        return view(**kwargs)
+
+    return wrapped_view()
