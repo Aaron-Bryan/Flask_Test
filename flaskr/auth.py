@@ -61,14 +61,19 @@ def login():
         db = get_db()
         error = None
 
+        # The user data is queried first and then stored into a variable
+        # The fetchone() returns a specified row from the query
         user = db.execute("SELECT * FROM user WHERE username = ?", (username)).fetchone()
 
         if user is None:
             error = "Incorrect username"
+
+        # check_password_hash() hashes the submitted password in the same method it is hashed and then compares the two.
         elif not check_password_hash(user[password], password):
             error = "Incorrect password"
 
         if error is None:
+            #Session is dict that stores data across requests, When validation is done the id of the user is stored in a new session
             session.clear()
             session["user_id"] = user["id"]
 
