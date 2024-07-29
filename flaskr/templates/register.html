@@ -1,9 +1,11 @@
+<!--This tells Jinja that this template should replace the block tags from the base html-->
 {% extends 'base.html' %}
 
 {% block header %}
   <h1>{% block title %}Register{% endblock %}</h1>
 {% endblock %}
 
+<!--The required attribute tells the browser to not submit the form unitl the required fields are filled-->
 {% block content %}
   <form method="post">
     <label for="username">Username</label>
