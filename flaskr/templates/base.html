@@ -1,9 +1,13 @@
 <!DOCTYPE html>
+<!--the block tags will be overridden in other templates-->
 <title>{% block title %}{% endblock %} - Flaskr</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 <nav>
   <h1>Flaskr</h1>
   <ul>
+      <!--g is automatically available in templates-->
+      <!--If statement to display logout and username or login, depending if g has a user-->
+      <!--url_for generates URLs to views automatically-->
     {% if g.user %}
       <li><span>{{ g.user['username'] }}</span>
       <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
